@@ -3,31 +3,23 @@ import "./App.css";
 import { Card } from "./components/Card";
 import { Column } from "./components/Column";
 import { ColumnContainer } from "./components/ColumnContainer";
+import { useCardReducer } from "./domain/useCardReducer";
+import { Card as CardType } from "./domain/types";
 
 const columns = ["Backlog", "Todo", "Doing", "Done"];
 
 function App() {
+  const { state } = useCardReducer();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
       <ColumnContainer>
-        {columns.map((name) => {
+        {Object.entries(state).map(([name, cards]) => {
           return (
-            <Column name={name}>
-              <Card />
+            <Column key={name} name={name}>
+              {cards.map((card) => {
+                return <Card key={card.id} card={card} />;
+              })}
             </Column>
           );
         })}

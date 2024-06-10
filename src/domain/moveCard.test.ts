@@ -1,17 +1,11 @@
 import { moveCard } from "./moveCard";
+import { baseReducer } from "./reducer";
 import { ActionNames, Reducer, State } from "./types";
 
 const card = {
   id: "1",
   content: "test",
   state: State.BACKLOG,
-};
-
-const baseReducer: Reducer = {
-  Backlog: [],
-  Todo: [],
-  Doing: [],
-  Done: [],
 };
 
 test("cards can be moved", () => {

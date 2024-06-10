@@ -6,7 +6,10 @@ export function moveCard(state: Reducer, action: Actions) {
   } = action;
 
   if (from === to) {
-    throw new Error("A card cannot be moved to the column it started in");
+    // TODO: change this to a different error mechanism
+    throw new Error(
+      `A card cannot be moved to the column it started in, (from ${from} to ${to})`
+    );
   }
 
   // remove the card from the previous category in the reducer
