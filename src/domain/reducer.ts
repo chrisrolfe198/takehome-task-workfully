@@ -6,12 +6,35 @@ export const baseReducer: Reducer = {
   Todo: [],
   Doing: [],
   Done: [],
+  options: {
+    cardToMoveToDone: undefined,
+  },
 };
 
 export function reducer(state: Reducer = baseReducer, action: Actions) {
-  if (action.type === ActionNames.MOVE_CARD) {
-    return moveCard(state, action);
-  }
+  switch (action.type) {
+    case ActionNames.MOVE_CARD:
+      return moveCard(state, action);
 
-  return state;
+    case ActionNames.MOVE_CARD_TO_DONE:
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          cardToMoveToDone: action.payload,
+        },
+      };
+
+    case ActionNames.RESET_MOVING_CARD_TO_DONE:
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          cardToMoveToDone: undefined,
+        },
+      };
+
+    default:
+      return state;
+  }
 }

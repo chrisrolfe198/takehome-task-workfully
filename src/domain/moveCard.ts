@@ -1,6 +1,6 @@
-import { Actions, Reducer } from "./types";
+import { MoveCardAction, Reducer } from "./types";
 
-export function moveCard(state: Reducer, action: Actions) {
+export function moveCard(state: Reducer, action: MoveCardAction) {
   const {
     payload: { card, from, to },
   } = action;

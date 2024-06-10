@@ -11,15 +11,33 @@ export type Card = {
   state: State;
 };
 
-export type Reducer = {
+type DataReducer = {
   [key in State]: Card[];
+};
+
+export type Reducer = DataReducer & {
+  options: {
+    cardToMoveToDone: Card | undefined;
+  };
 };
 
 export enum ActionNames {
   MOVE_CARD = "MOVE_CARD",
+  MOVE_CARD_TO_DONE = "MOVE_CARD_TO_DONE",
+  RESET_MOVING_CARD_TO_DONE = "RESET_MOVING_CARD_TO_DONE",
 }
 
-export type Actions = {
+export type MoveCardAction = {
   type: ActionNames.MOVE_CARD;
   payload: { card: Card; from: State; to: State };
 };
+
+export type Actions =
+  | MoveCardAction
+  | {
+      type: ActionNames.MOVE_CARD_TO_DONE;
+      payload: Card;
+    }
+  | {
+      type: ActionNames.RESET_MOVING_CARD_TO_DONE;
+    };

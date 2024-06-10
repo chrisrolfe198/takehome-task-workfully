@@ -1,10 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { DoneConfirmation } from "./DoneConfirmation";
 import { Card } from "./components/Card";
 import { Column } from "./components/Column";
 import { ColumnContainer } from "./components/ColumnContainer";
+import { State } from "./domain/types";
 import { useCardReducer } from "./domain/useCardReducer";
-import { Card as CardType } from "./domain/types";
 
 const columns = ["Backlog", "Todo", "Doing", "Done"];
 
@@ -14,16 +14,18 @@ function App() {
   return (
     <div className="App">
       <ColumnContainer>
-        {Object.entries(state).map(([name, cards]) => {
+        {columns.map((col) => {
+          const name = col as State;
           return (
             <Column key={name} name={name}>
-              {cards.map((card) => {
+              {state[name].map((card) => {
                 return <Card key={card.id} card={card} />;
               })}
             </Column>
           );
         })}
       </ColumnContainer>
+      <DoneConfirmation />
     </div>
   );
 }

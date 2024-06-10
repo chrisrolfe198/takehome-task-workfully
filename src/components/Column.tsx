@@ -4,12 +4,13 @@ import styled from "styled-components";
 import { Card, State } from "../domain/types";
 import { useCardReducer } from "../domain/useCardReducer";
 import { Overlay } from "./Overlay";
+import { canMoveCard } from "../domain/canMoveCard";
 
 const StyledColumn = styled.div`
   display: block;
   width: 100%;
   position: relative;
-  background: grey;
+  background: lightgrey;
   padding: 1rem 0;
   margin: 0 1rem;
 `;
@@ -18,17 +19,21 @@ export const Column = ({
   name,
   children,
 }: PropsWithChildren<{ name: string }>) => {
-  const { moveCard } = useCardReducer();
-  const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    accept: "CARD",
-    // TODO: tie this into the reducer validation so it's all done in one place
-    canDrop: (card: Card) => card.state !== name,
-    drop: (card: Card) => moveCard(card, name as State),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-      canDrop: !!monitor.canDrop(),
+  const { state, moveCard } = useCardReducer();
+  const [{ isOver, canDrop }, drop] = useDrop(
+    () => ({
+      accept: "CARD",
+      // TODO: tie this into the reducer validation so it's all done in one place
+      canDrop: (card: Card) =>
+        canMoveCard(card, state, card.state, name as State),
+      drop: (card: Card) => moveCard(card, name as State),
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+        canDrop: !!monitor.canDrop(),
+      }),
     }),
-  }));
+    [state]
+  );
 
   return (
     <StyledColumn ref={drop}>
