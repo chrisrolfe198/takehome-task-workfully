@@ -1,6 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Card } from "./components/Card";
+import { Column } from "./components/Column";
+import { ColumnContainer } from "./components/ColumnContainer";
+
+const columns = ["Backlog", "Todo", "Doing", "Done"];
 
 function App() {
   return (
@@ -19,6 +23,15 @@ function App() {
           Learn React
         </a>
       </header>
+      <ColumnContainer>
+        {columns.map((name) => {
+          return (
+            <Column name={name}>
+              <Card />
+            </Column>
+          );
+        })}
+      </ColumnContainer>
     </div>
   );
 }

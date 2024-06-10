@@ -1,3 +1,4 @@
+import { moveCard } from "./moveCard";
 import { ActionNames, Actions, Reducer } from "./types";
 
 export function reducer(state: Reducer, action: Actions) {
