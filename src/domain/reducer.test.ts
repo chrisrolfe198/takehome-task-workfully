@@ -53,7 +53,7 @@ test("card can be unmarked as being moved to done", () => {
     }
   );
 
-  expect(state.options.cardToMoveToDone).toEqual(undefined);
+  expect(state.options.cardToMoveToDone).toEqual(null);
 });
 
 test("new card can be added", () => {

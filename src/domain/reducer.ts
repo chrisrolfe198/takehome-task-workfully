@@ -7,7 +7,7 @@ export const baseReducer: Reducer = {
   Doing: [],
   Done: [],
   options: {
-    cardToMoveToDone: undefined,
+    cardToMoveToDone: null,
     nextId: 1,
   },
 };
@@ -31,7 +31,7 @@ export function reducer(state: Reducer = baseReducer, action: Actions) {
         ...state,
         options: {
           ...state.options,
-          cardToMoveToDone: undefined,
+          cardToMoveToDone: null,
         },
       };
 

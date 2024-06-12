@@ -17,7 +17,7 @@ type DataReducer = {
 
 export type Reducer = DataReducer & {
   options: {
-    cardToMoveToDone: Card | undefined;
+    cardToMoveToDone: Card | null;
     nextId: number;
   };
 };

@@ -18,6 +18,7 @@ const StyledColumn = styled.div`
 export const Column = ({
   name,
   children,
+  ...args
 }: PropsWithChildren<{ name: string }>) => {
   const { state, moveCard } = useCardReducer();
   const [{ isOver, canDrop }, drop] = useDrop(
@@ -36,7 +37,7 @@ export const Column = ({
   );
 
   return (
-    <StyledColumn ref={drop}>
+    <StyledColumn {...args} ref={drop}>
       {name}:<div>{children}</div>
       {isOver && !canDrop && <Overlay color="red" />}
       {!isOver && canDrop && <Overlay color="yellow" />}

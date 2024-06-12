@@ -23,7 +23,7 @@ function App() {
         {columns.map((col) => {
           const name = col as State;
           return (
-            <Column key={name} name={name}>
+            <Column data-testid={`column-${name}`} key={name} name={name}>
               {state[name].map((card) => {
                 return <Card key={card.id} card={card} />;
               })}

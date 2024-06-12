@@ -14,6 +14,8 @@ export const AddCard = ({ cancel }: { cancel: () => void }) => {
       <label htmlFor="card">Card </label>
       <input
         value={state}
+        name="card"
+        id="card"
         autoFocus
         onChange={(e) => setState(e.target.value)}
       />
