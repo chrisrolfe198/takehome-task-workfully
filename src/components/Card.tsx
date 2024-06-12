@@ -1,9 +1,9 @@
-import { PropsWithChildren, Ref } from "react";
+import { PropsWithChildren } from "react";
 import { useDrag } from "react-dnd";
 import { styled } from "styled-components";
+import { canMoveCard } from "../domain/canMoveCard";
 import { Card as CardType } from "../domain/types";
 import { useCardReducer } from "../domain/useCardReducer";
-import { canMoveCard } from "../domain/canMoveCard";
 
 const CardComponent = styled.div<{ $canDrag: boolean; $isDragging: boolean }>`
   opacity: ${({ $isDragging }) => ($isDragging ? 0.5 : 1)};

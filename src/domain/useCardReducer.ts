@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect } from "react";
 import { localStorageKey } from "../constants";
 import { CardStateContext } from "./CardStateProvider";
 import { ActionNames, Card, State } from "./types";
