@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+## Running the app and tests
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project runs off of Create React App and all documentation for it can be found in this [readme](./CRA-README.md).
 
-## Available Scripts
+## Technical decisions
 
-In the project directory, you can run:
+### Why Create React App (CRA)
 
-### `npm start`
+CRA is a very consistent and reliable way to bootstrap a react project. Given the simplicity of the requirements and the fact that I needed to store the data in localstorage I decided it would be the fastest and easiest way to get up and running with this kind of project.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If there had been different requirements I might have considered a different approach, for example if the specification to store data in localstorage hadn't been there I might have used [Remix](https://remix.run/) instead. I would probably have given remix/next more consideration if performance was a greater issue for this task.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+In the end though CRA allowed me to keep it simple and get up and running very quickly.
 
-### `npm test`
+### Testing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I subscribe to the testing trophy approach as defined by Kent C Dodds, see [here](https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications) for a detailed breakdown.
 
-### `npm run build`
+I opted to write a single unit test for my reducer and a series of integration tests that covered the specific criteria mentioned in the task description.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I chose to write a unit test for my reducer as it's my source of truth for the data and I want to ensure that that is correct as it's the core of how the app works.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+When writing my integration tests I wanted to cover two specific things, first that the user interactions met the criteria specified for the task, and also that localstorage matched what was expected as that was a criteria that was specified. It also provided a way to verify that the underlying data structure matched the expected values.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Styling
 
-### `npm run eject`
+I opted to use styled-components over something like tailwind simply because it's more compatible with create react app. If I'd used remix I'd probably would have used tailwind.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+I specifically haven't made a lot of effort around the styling as it's not my strength. I've generally just tried to have reasonable spacing around elements.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Add card form
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+I added this as a convenience factor and it does not represent how I would actually have a form work. If I were to do this properly I'd use something like [React Hook Form](https://www.react-hook-form.com/) and add validation and error messages.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Code splitting
 
-## Learn More
+I've tried to split the code in two ways.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Domain
+2. Components
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Domain
+
+The intent of domain is to hold business logic and to essentially be the source of truth from a data layer perspective. All the business rules from the task are managed here and where necessary they are called in the components. E.G. in the dragging/dropping components they call the domain layer to see if a card can be dragged or dropped.
+
+#### Components
+
+The idea here was to keep these components as simple as possible. Ideally these would all have been purely presentational but I needed to incorporate the React-dnd hooks in so these made them slightly more complex.
