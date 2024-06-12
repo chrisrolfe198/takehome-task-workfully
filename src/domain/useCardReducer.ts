@@ -54,6 +54,13 @@ export const useCardReducer = () => {
     resetMovingCardToDone();
   };
 
+  const addCard = (content: string) => {
+    dispatch({
+      type: ActionNames.ADD_CARD,
+      payload: content,
+    });
+  };
+
   useEffect(() => {
     // TODO: this is triggering too many times with rerenders
     localStorage.setItem(localStorageKey, JSON.stringify(state));
@@ -64,5 +71,6 @@ export const useCardReducer = () => {
     moveCard,
     moveCardToDone,
     resetMovingCardToDone,
+    addCard,
   };
 };

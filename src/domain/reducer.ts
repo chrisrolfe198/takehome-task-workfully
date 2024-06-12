@@ -1,5 +1,5 @@
 import { moveCard } from "./moveCard";
-import { ActionNames, Actions, Reducer } from "./types";
+import { ActionNames, Actions, Card, Reducer, State } from "./types";
 
 export const baseReducer: Reducer = {
   Backlog: [],
@@ -8,6 +8,7 @@ export const baseReducer: Reducer = {
   Done: [],
   options: {
     cardToMoveToDone: undefined,
+    nextId: 1,
   },
 };
 
@@ -31,6 +32,23 @@ export function reducer(state: Reducer = baseReducer, action: Actions) {
         options: {
           ...state.options,
           cardToMoveToDone: undefined,
+        },
+      };
+
+    case ActionNames.ADD_CARD:
+      return {
+        ...state,
+        [State.BACKLOG]: [
+          ...state[State.BACKLOG],
+          {
+            id: state.options.nextId,
+            content: action.payload,
+            state: State.BACKLOG,
+          } as Card,
+        ],
+        options: {
+          ...state.options,
+          nextId: state.options.nextId + 1,
         },
       };
 

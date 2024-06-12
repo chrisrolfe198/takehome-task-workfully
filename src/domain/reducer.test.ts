@@ -1,9 +1,9 @@
 import { moveCard } from "./moveCard";
 import { baseReducer, reducer } from "./reducer";
-import { ActionNames, Reducer, State } from "./types";
+import { ActionNames, Card, Reducer, State } from "./types";
 
 const card = {
-  id: "1",
+  id: 1,
   content: "test",
   state: State.BACKLOG,
 };
@@ -54,4 +54,23 @@ test("card can be unmarked as being moved to done", () => {
   );
 
   expect(state.options.cardToMoveToDone).toEqual(undefined);
+});
+
+test("new card can be added", () => {
+  const state = reducer(
+    { ...baseReducer },
+    {
+      type: ActionNames.ADD_CARD,
+      payload: "test",
+    }
+  );
+
+  expect(state.options.nextId).toEqual(2);
+  expect(state.Backlog).toEqual([
+    {
+      id: 1,
+      content: "test",
+      state: State.BACKLOG,
+    },
+  ]);
 });

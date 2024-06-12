@@ -6,7 +6,7 @@ export enum State {
 }
 
 export type Card = {
-  id: string;
+  id: number;
   content: string;
   state: State;
 };
@@ -18,6 +18,7 @@ type DataReducer = {
 export type Reducer = DataReducer & {
   options: {
     cardToMoveToDone: Card | undefined;
+    nextId: number;
   };
 };
 
@@ -25,6 +26,7 @@ export enum ActionNames {
   MOVE_CARD = "MOVE_CARD",
   MOVE_CARD_TO_DONE = "MOVE_CARD_TO_DONE",
   RESET_MOVING_CARD_TO_DONE = "RESET_MOVING_CARD_TO_DONE",
+  ADD_CARD = "ADD_CARD",
 }
 
 export type MoveCardAction = {
@@ -40,4 +42,8 @@ export type Actions =
     }
   | {
       type: ActionNames.RESET_MOVING_CARD_TO_DONE;
+    }
+  | {
+      type: ActionNames.ADD_CARD;
+      payload: string;
     };

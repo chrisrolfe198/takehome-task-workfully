@@ -20,6 +20,7 @@ const ModalContent = styled.div`
   top: 50%;
   translate: -50% -50%;
   width: 50%;
+  padding: 1rem;
 `;
 
 export const Modal = ({ children }: PropsWithChildren) => {
